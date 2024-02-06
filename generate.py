@@ -44,17 +44,17 @@ ip_model = IPAdapterFaceID(pipe, ip_ckpt, device)
 def resize_image_cv(img):
     # convert the dimension with the shortest dimension being 512 pixels, and the other one to the multiple of 8 while preserving aspect ratio
     original_height, original_width = img.shape[:2]
-    if original_width < original_height:
-        new_width = 512
-        new_height = int((original_height / original_width) * 512)
-    else:
+    if original_width > original_height:
         new_height = 512
         new_width = int((original_width / original_height) * 512)
+    else:
+        new_width = 512
+        new_height = int((original_height / original_width) * 512)
     new_width = (new_width // 8) * 8
     new_height = (new_height // 8) * 8
     resized_img = cv2.resize(img, (new_width, new_height), interpolation=cv2.INTER_LANCZOS4)
     
-    return resized_img, new_width, new_height
+    return resized_img
 
 def generate(image_path,prompt = "photo of a person"):
   try:
@@ -62,11 +62,15 @@ def generate(image_path,prompt = "photo of a person"):
     image = resize_image_cv(image)
     faces = face_app.get(image)
     faceid_embeds = torch.from_numpy(faces[0].normed_embedding).unsqueeze(0)
-    # generate image
     negative_prompt = "monochrome, lowres, bad anatomy, worst quality, low quality, blurry"
     print("Generating Image...........")
     images = ip_model.generate(
-        prompt=prompt, negative_prompt=negative_prompt, faceid_embeds=faceid_embeds, num_samples=1, width=512, height=768, num_inference_steps=30)
+        prompt=prompt, 
+        negative_prompt=negative_prompt, 
+        faceid_embeds=faceid_embeds, 
+        num_samples=1,
+        num_inference_steps=30)
     return images[0]
-  except:
+  except Exception as e:
+      print(f"An error occurred: {e}")
       return False

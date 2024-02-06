@@ -92,7 +92,7 @@ def main(args):
         local_path = os.path.join(base_path, image_path)  # Full path to the image
         generated_image = generate(local_path, prompt)
         save_result(generated_image, args, base_path, image_path)
-        
+        return generated_image
 if __name__ == "__main__":
     parser = setup_arg_parser()
     args = parser.parse_args()
