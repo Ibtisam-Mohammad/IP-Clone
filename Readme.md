@@ -1,4 +1,4 @@
-# IP-CLone
+# IP-Clone
 I use IP-Adapter FaceID along with Stable Diffusion model to transform the face from an uploaded image into a new image based on textual prompts.
 
 ## Installation
