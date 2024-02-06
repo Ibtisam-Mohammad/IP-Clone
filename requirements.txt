@@ -1,5 +1,7 @@
 insightface
 onnxruntime-gpu
 einops
-diffusers["torch"] transformers
+diffusers
+torch 
+transformers
 boto3

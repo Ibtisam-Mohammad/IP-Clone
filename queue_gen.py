@@ -1,11 +1,11 @@
-import json
-import boto3
+import io
 import os
 import cv2
+import time
+import json
+import boto3
 import argparse
 from PIL import Image
-import time
-import io
 from generate import generate
 
 def setup_arg_parser():

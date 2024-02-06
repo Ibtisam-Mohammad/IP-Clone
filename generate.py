@@ -1,16 +1,15 @@
+import io
+import sys
 import cv2
 import time
 import torch
+import base64
+import numpy as np
 from PIL import Image
+sys.path.append("IP-Adapter")
 from insightface.app import FaceAnalysis
 from ip_adapter.ip_adapter_faceid import IPAdapterFaceID
 from diffusers import StableDiffusionPipeline, DDIMScheduler, AutoencoderKL
-import fastapi
-from fastapi import File, UploadFile
-import base64
-import io
-from PIL import Image
-import numpy as np
 
 base_model_path = "SG161222/Realistic_Vision_V4.0_noVAE"
 vae_model_path = "stabilityai/sd-vae-ft-mse"
