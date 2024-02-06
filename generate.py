@@ -56,7 +56,7 @@ def resize_image_cv(img):
     
     return resized_img
 
-def generate(image_path,prompt = "photo of a person"):
+def generate(image_path,prompt = "photo of a person in a library"):
   try:
     image = cv2.imread(image_path)
     image = resize_image_cv(image)
@@ -70,6 +70,7 @@ def generate(image_path,prompt = "photo of a person"):
         faceid_embeds=faceid_embeds, 
         num_samples=1,
         num_inference_steps=30)
+    print("Generation Complete...........")
     return images[0]
   except Exception as e:
       print(f"An error occurred: {e}")
